@@ -19,8 +19,8 @@ int Photo2 = 34;
 int Photo1 = 36;
 //Led for MVR
 int ledTriangle = 43;
-int ledCircle = 8;
-int ledRectangle = 7;
+int ledCircle = 41;
+int ledRectangle = 42;
 
 void setup()
 {
@@ -203,8 +203,7 @@ delay(500);
 
 // if doesn't fit criteria lows to everything
 else
-{
-//Write a HIGH to the Rectangle and LOWs for the Triangle and Circle 
+{ 
 digitalWrite(ledRectangle, LOW);
 digitalWrite(ledCircle, LOW);
 digitalWrite(ledTriangle, LOW);
