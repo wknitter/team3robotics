@@ -37,7 +37,11 @@ void loop()
   val3 = analogRead(potPin3);
   val2 = analogRead(potPin2);
   val1 = analogRead(potPin1);
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> FETCH_HEAD
   if(val4 < 750 && val3 > 380 && val2 > 350)
   {
     
