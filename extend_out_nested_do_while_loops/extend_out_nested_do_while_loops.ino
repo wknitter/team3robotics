@@ -34,6 +34,7 @@ void setup()
 void loop()
 {
   val4 = analogRead(potPin4);
+  
   if(val4 > 280)
   {
   val4 = analogRead(potPin4);
@@ -69,15 +70,16 @@ void loop()
   
   //motor4.run(RELEASE);
   
-  /*val1 = analogRead(potPin1);
+  val1 = analogRead(potPin1);
   do
   {
     val1 = analogRead(potPin1);
     motor1.run(FORWARD); //close claw
     val1 = analogRead(potPin1);
-  } while (val1 > 500);   //500 is approx tool size
+  } while (val1 > 50);   //50 is approx tool size
   motor1.run(BACKWARD);
-  motor1.run(RELEASE);*/
+  motor1.run(RELEASE);
+  
   //motor4.run(RELEASE);
   }
   else

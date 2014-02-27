@@ -33,21 +33,27 @@ void setup()
 
 void loop()
 {
+  val4 = analogRead(potPin4);
+  val3 = analogRead(potPin3);
+  val2 = analogRead(potPin2);
+  val1 = analogRead(potPin1);
+  
   if(val4 < 750 && val3 > 380 && val2 > 350)
   {
+    
     Serial.println("test motor 4");
-  val4 = analogRead(potPin4);
-  do
-  {
     val4 = analogRead(potPin4);
-    motor4.run(FORWARD); //back
-    val4 = analogRead(potPin4);
-  } while (val4 < 750);   //814
-  motor4.run(BACKWARD);
-  motor4.run(RELEASE);
+    do
+    {
+      val4 = analogRead(potPin4);
+      motor4.run(FORWARD); //back
+      val4 = analogRead(potPin4);
+    } while (val4 < 750);   //814
+    motor4.run(BACKWARD);
+    motor4.run(RELEASE);
   
-  Serial.println("test motor 3");
-  val3 = analogRead(potPin3);
+    Serial.println("test motor 3");
+    val3 = analogRead(potPin3);
     do
     {
       val3 = analogRead(potPin3);
@@ -58,33 +64,36 @@ void loop()
     motor3.run(RELEASE);
     
     Serial.println("test motor 2");
-  val2 = analogRead(potPin2);
-  do
-  {
     val2 = analogRead(potPin2);
-    motor2.run(BACKWARD); //down
-    val2 = analogRead(potPin2);
-  } while (val2 > 350);   //305
-  motor2.run(FORWARD);
-  motor2.run(RELEASE); 
+    do
+    {
+      val2 = analogRead(potPin2);
+      motor2.run(BACKWARD); //down
+      val2 = analogRead(potPin2);
+    } while (val2 > 350);   //305
+    motor2.run(FORWARD);
+    motor2.run(RELEASE); 
  
-  /*val1 = analogRead(potPin1);
-  do
-  {
     val1 = analogRead(potPin1);
-    motor1.run(BACKWARD); //open claw
-    val1 = analogRead(potPin1);
-  } while (val1 < 300); //371 to 380
-  motor1.run(FORWARD);
-  motor1.run(RELEASE);*/
+    do
+    {
+      val1 = analogRead(potPin1);
+      motor1.run(BACKWARD); //open claw
+      val1 = analogRead(potPin1);
+    } while (val1 < 300); //371 to 380
+    motor1.run(FORWARD);
+    motor1.run(RELEASE);
+  
   }
   else
   {
+    
     Serial.println("test else statement");
     motor4.run(RELEASE);
     motor3.run(RELEASE);
     motor2.run(RELEASE);
     motor1.run(RELEASE);
+    
   }
    
 }
