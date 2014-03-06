@@ -18,6 +18,7 @@ int pingLPin = 24;
 int pingTPin = 25;
 
 int fire = 30; //still need to measure this
+boolean fireDetected;
 
 int tooClose = 30; //duration = cm*58 = 17.78*58 = 1031.24 (17.78cm = 7in)
 //14-17 = wave 76-77 = opening
@@ -33,6 +34,8 @@ int oilRigDist; // =
 int oilRig1; //square
 int oilRig2; //triangle 
 int oilRig3; //circle
+int fireRig; //rig that is on fire
+int delayx;
 
 //foward = 1
 //reverse = 2
@@ -61,8 +64,86 @@ void loop()
  Wire.write("x is ");
  Wire.write(x);
  Wire.endTransmission();
- delay(1000); //this should be the time it takes to drive to oil rig #1
- x = 0;       //stop in front of oil rig
+ delay(1000); //this should be the time it takes to drive to oil rig #1 approx 10"
+ x = 0;       //stop in front of oil rig 
+ Serial.print("x transmitted = ");
+ Serial.print(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+
+ do
+ {
+  //check oil rig
+  distanceT = pingTop();
+  Serial.print("Top ping sensor = ");
+  Serial.println(distanceT);
+  delay(1000);
+  fireRig = 0;
+  if(distanceT > fire)
+  {
+    fireDetected = false; // = or ==?
+    x = 1;
+    Serial.print("x transmitted = ");
+    Serial.print(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(1000); //this should be the time it takes to drive to next oil rig approx 30"
+    x = 0;       //stop in front of oil rig 
+    Serial.print("x transmitted = ");
+    Serial.print(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    fireRig = fireRig + 1;
+  }
+  else
+  {
+    //fireDetected = true;
+    switch(fireRig)
+    {
+      case 1:
+      //square rig
+      fireRig = oilRig1;
+      delayx = 000; //time it takes to drive from first rig to tools
+      break;
+      
+      case 2:
+      //triangle rig
+      fireRig = oilRig2;
+      delayx = 000; //time it takes to drive from middle rig to tools
+      break;
+      
+      case 3:
+      //circle rig
+      fireRig = oilRig3;
+      delayx = 000; //time it takes to drive from oil rig closest to the tools to the tools
+      break;
+      
+      default:
+      //pick random rig = circle because it is the easiest in that it doesn't need any orientation
+      fireRig = oilRig3;
+      delayx = 000; //same time as for circle rig
+      break;
+    }
+    fireDetected = true; // = or ==?
+  }
+ }while(fireDetected == false);
+ 
+ //After oil rig that is on fire is detected, drive forward to the tools
+ x = 1;
+ Serial.print("x transmitted = ");
+ Serial.print(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+ delay(delayx); //this should be the time it takes to drive to the tools from specific oil rig
+ x = 0;       //stop in front of oil rig 
  Serial.print("x transmitted = ");
  Serial.print(x);
  Wire.beginTransmission(2);
@@ -70,80 +151,10 @@ void loop()
  Wire.write(x);
  Wire.endTransmission();
  
- //check oil rig #1
- distanceT = pingTop();
- Serial.print("Top ping sensor = ");
- Serial.println(distanceT);
- delay(1000);
- if(distanceT < fire)
- {
-   //save this oil rig as target and drive to tools to pick up corresponding tool
-   //oil rig = square rig
- }
- else
- {
-   //move on to check next oil rig
-    x = 1;
-   Serial.print("x transmitted = ");
-   Serial.print(x);
-   Wire.beginTransmission(2);
-   Wire.write("x is ");
-   Wire.write(x);
-   Wire.endTransmission();
-   delay(1000); //this should be the time it takes to drive to oil rig #2
-   x = 0;       //stop in front of oil rig
-   Serial.print("x transmitted = ");
-   Serial.print(x);
-   Wire.beginTransmission(2);
-   Wire.write("x is ");
-   Wire.write(x);
-   Wire.endTransmission();
+ //
+   
  
-   //check oil rig #2
-   distanceT = pingTop();
-   Serial.print("Top ping sensor = ");
-   Serial.println(distanceT);
-   delay(1000);
-   if(distanceT < fire)
-   {
-     //save this oil rig as target and drive to tools to pick up corresponding tool
-     //oil rig = triangle rig
-   }
-   else
-   {
-     //move on to check next oil rig
-      x = 1;
-      Serial.print("x transmitted = ");
-      Serial.print(x);
-      Wire.beginTransmission(2);
-      Wire.write("x is ");
-      Wire.write(x);
-      Wire.endTransmission();
-      delay(1000); //this should be the time it takes to drive to oil rig #3
-      x = 0;       //stop in front of oil rig
-      Serial.print("x transmitted = ");
-      Serial.print(x);
-      Wire.beginTransmission(2);
-      Wire.write("x is ");
-      Wire.write(x);
-      Wire.endTransmission();
  
-      //check oil rig #3
-      distanceT = pingTop();
-      Serial.print("Top ping sensor = ");
-      Serial.println(distanceT);
-      delay(1000);
-      if(distanceT < fire)
-      {
-        //save this oil rig as target and drive to tools to pick up corresponding tool
-        //oil rig = circle rig
-      }
-      else
-      {
-        //reverse back to starting position
-      }
-   }
- }
  
  
  
