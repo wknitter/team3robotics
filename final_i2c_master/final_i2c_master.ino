@@ -36,6 +36,9 @@ int oilRig2; //triangle
 int oilRig3; //circle
 int fireRig; //rig that is on fire
 int delayx;
+int waveCount = 0;
+int waveRow = 0;
+int delayw = 0; //delayw = (time to drive 16" forward)*(delayw)
 
 //foward = 1
 //reverse = 2
@@ -52,7 +55,7 @@ void setup()
 
 void loop()
 {
- //start by waiting 5 seconds after switch is turned on
+ //start by waiting 5 seconds after switch is turned on before robot does anything
  delay(5000);
  
  //starting position: drive to check oil rigs for fire 
@@ -151,7 +154,29 @@ void loop()
  Wire.write(x);
  Wire.endTransmission();
  
- //
+ //this is where tool detection squence begins
+ 
+ //need repositioning code here?
+ 
+ //after tool is in transport postion reverse to starting position 
+ x = 2;
+ Serial.print("x transmitted = ");
+ Serial.print(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+ delay(1000); //this should be the time it takes to reverse back to starting position from the tools
+ x = 0;       //stop at starting position
+ Serial.print("x transmitted = ");
+ Serial.print(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+ 
+ //start wave dectection loop
+ 
    
  
  

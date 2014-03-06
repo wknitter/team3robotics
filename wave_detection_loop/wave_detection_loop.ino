@@ -6,6 +6,10 @@ void setup()
 
 void setup()
 {
+  //still need to add waveCount to know where openings were to execut in reverse sequence on trip back
+  int waveCount = 0;
+  int waveRow = 0;
+  int delayw = 0; //delayw = (time to drive 16" forward)*(delayw) 
   //put all of this in a do while loop with a counter as a condition 
  do
  {
@@ -36,6 +40,7 @@ void setup()
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
+    delayw = delayw + 1;
     
   }
   else if(distanceR>tooClose && distanceF>tooClose && distanceL>wave) //wave is not present condition
@@ -55,6 +60,81 @@ void setup()
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
+    //waveRow = waveRow + 1;
+    
+    distanceL= pingLeft();
+    Serial.print(distanceL);
+ 
+    distanceR = pingRight();
+    Serial.print(distanceR);
+ 
+    distanceF = pingForward();
+    Serial.println(distanceF);
+  
+    //drive through opening
+    if(distanceR>tooClose && distanceF>opening && distanceL>tooClose)
+    {
+      x = 1;
+      Serial.print("x transmitted = ");
+      Serial.print(x);
+      Wire.beginTransmission(2);
+      Wire.write("x is ");
+      Wire.write(x);
+      Wire.endTransmission();
+      delay(1000); //this should be the time it takes to drive 21" forward
+      x = 0;       //stop in front of wave 
+      Serial.print("x transmitted = ");
+      Serial.print(x);
+      Wire.beginTransmission(2);
+      Wire.write("x is ");
+      Wire.write(x);
+      Wire.endTransmission();
+      waveRow = waveRow + 1;
+    }
+    else
+    {
+      x = 0;       //stop
+      Serial.print("x transmitted = ");
+      Serial.print(x);
+      Wire.beginTransmission(2);
+      Wire.write("x is ");
+      Wire.write(x);
+      Wire.endTransmission();
+    }
+   
+   //turn 90 degrees right
+   x = 4;
+   Serial.print("x transmitted = ");
+   Serial.print(x);
+   Wire.beginTransmission(2);
+   Wire.write("x is ");
+   Wire.write(x);
+   Wire.endTransmission();
+   x = 0;       //stop to face opening 
+   Serial.print("x transmitted = ");
+   Serial.print(x);
+   Wire.beginTransmission(2);
+   Wire.write("x is ");
+   Wire.write(x);
+   Wire.endTransmission(); 
+  
+   //reverse back to starting position using delay correlating to waveCount 
+   x = 2;
+   Serial.print("x transmitted = ");
+   Serial.print(x);
+   Wire.beginTransmission(2);
+   Wire.write("x is ");
+   Wire.write(x);
+   Wire.endTransmission();
+   delayw = delayw*/*time it takes to reverse 16'*/;
+   delay(delayw); //delay that correlates to 
+   x = 0;       //stop in front of wave 
+   Serial.print("x transmitted = ");
+   Serial.print(x);
+   Wire.beginTransmission(2);
+   Wire.write("x is ");
+   Wire.write(x);
+   Wire.endTransmission();
   }
   else
   {
@@ -76,6 +156,7 @@ void setup()
   distanceF = pingForward();
   Serial.println(distanceF);
   
+  /*
   //drive through opening
   if(distanceR>tooClose && distanceF>opening && distanceL>tooClose)
   {
@@ -94,8 +175,10 @@ void setup()
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
+    waveRow = waveRow + 1;
   }
+  */
   
- } while();
+ } while(waveRow < 4);
   
 }
