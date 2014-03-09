@@ -21,8 +21,8 @@ void setup()
   
   motor1.setSpeed(100);
   motor2.setSpeed(100);
-  motor3.setSpeed(180);
-  motor4.setSpeed(150);
+  motor3.setSpeed(250);
+  motor4.setSpeed(250);
   
   motor1.run(RELEASE);
   motor2.run(RELEASE);
@@ -35,7 +35,7 @@ void loop()
 {
   val4 = analogRead(potPin4);
   
-  if(val4 > 280)
+  if(val4 > 380)
   {
   val4 = analogRead(potPin4);
   do
@@ -50,12 +50,12 @@ void loop()
       val3 = analogRead(potPin3);
       motor3.run(BACKWARD); //up
       val3 = analogRead(potPin3);
-    } while (val3 < 770);   //814
+    } while (val3 < 540);   //549
     motor3.run(FORWARD);
     motor3.run(RELEASE);
     
-  } while (val4 > 280);   //236
-  motor4.run(FORWARD);
+  } while (val4 > 380);   //305 is a bit low and 380 is a bit high but the motor moves much faster
+  motor4.run(FORWARD);    //236-280 = old value where are was out too far for leverage
   motor4.run(RELEASE);
   
   val2 = analogRead(potPin2);
@@ -64,7 +64,7 @@ void loop()
     val2 = analogRead(potPin2);
     motor2.run(FORWARD); //up
     val2 = analogRead(potPin2);
-  } while (val2 < 510);   //573
+  } while (val2 < 605);   //610
   motor2.run(BACKWARD);
   motor2.run(RELEASE);
   
@@ -76,7 +76,7 @@ void loop()
     val1 = analogRead(potPin1);
     motor1.run(FORWARD); //close claw
     val1 = analogRead(potPin1);
-  } while (val1 > 50);   //50 is approx tool size
+  } while (val1 > 19);   //19 is approx tool size
   motor1.run(BACKWARD);
   motor1.run(RELEASE);
   

@@ -21,8 +21,8 @@ void setup()
   
   motor1.setSpeed(100);
   motor2.setSpeed(100);
-  motor3.setSpeed(180);
-  motor4.setSpeed(150);
+  motor3.setSpeed(250);
+  motor4.setSpeed(250);
   
   motor1.run(RELEASE);
   motor2.run(RELEASE);
@@ -37,12 +37,8 @@ void loop()
   val3 = analogRead(potPin3);
   val2 = analogRead(potPin2);
   val1 = analogRead(potPin1);
-<<<<<<< HEAD
   
-=======
-
->>>>>>> FETCH_HEAD
-  if(val4 < 750 && val3 > 380 && val2 > 350)
+  if(val4 < 750 || val3 > 380 || val2 > 350)
   {
     
     Serial.println("test motor 4");
