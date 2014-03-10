@@ -34,13 +34,17 @@ void setup()
 
 void loop()
 {
-  //val4 = analogRead(potPin4);
+  val4 = analogRead(potPin4);
+  Serial.println(val4);
+  
+  if(val4 > 340) //may need to change since motor moves much faster now
+  {
   val4 = analogRead(potPin4);
   do
   {
-    val4 = analogRead(potPin4);
-    motor4.run(BACKWARD); //out
-    val4 = analogRead(potPin4);
+    //val4 = analogRead(potPin4);
+    //motor4.run(BACKWARD); //out
+    //val4 = analogRead(potPin4);
     
     val3 = analogRead(potPin3);
     do
@@ -48,12 +52,16 @@ void loop()
       val3 = analogRead(potPin3);
       motor3.run(BACKWARD); //up
       val3 = analogRead(potPin3);
-    } while (val3 < 540);   //549
+    } while (val3 < 815);   //820
     motor3.run(FORWARD);
     motor3.run(RELEASE);
     
-  } while (val4 > 380);   //305 is a bit low and 380 is a bit high but the motor moves much faster
-  motor4.run(FORWARD);    //236-280 = old value where are was out too far for leverage
+    val4 = analogRead(potPin4);
+    motor4.run(BACKWARD); //out
+    val4 = analogRead(potPin4);
+    
+  } while (val4 > 340);   //338 may need to be a higher value since motor moves much faster
+  motor4.run(FORWARD);    
   motor4.run(RELEASE);
   
   val2 = analogRead(potPin2);
@@ -62,13 +70,14 @@ void loop()
     val2 = analogRead(potPin2);
     motor2.run(FORWARD); //up
     val2 = analogRead(potPin2);
-  } while (val2 < 605);   //610
+  } while (val2 < 400);   //427
   motor2.run(BACKWARD);
   motor2.run(RELEASE);
   
   //motor4.run(RELEASE);
   
-  val1 = analogRead(potPin1);
+  //claw doesn't need to move for tool scan
+  /*val1 = analogRead(potPin1);
   do
   {
     val1 = analogRead(potPin1);
@@ -76,46 +85,17 @@ void loop()
     val1 = analogRead(potPin1);
   } while (val1 > 19);   //19 is approx tool size
   motor1.run(BACKWARD);
-  motor1.run(RELEASE);
-  
-  val4 = analogRead(potPin4);
-  do
-  {
-    val4 = analogRead(potPin4);
-    motor4.run(FORWARD); //pick up tool
-    val4 = analogRead(potPin4);
-  } while (val4 < 500);
-  
-  delay(2000);
-  
-  val4 = analogRead(potPin4);
-  do
-  {
-    val4 = analogRead(potPin4);
-    motor4.run(BACKWARD); //out
-    val4 = analogRead(potPin4);
-  } while (val4 > 380);   
-  motor4.run(FORWARD);    
-  motor4.run(RELEASE);
-  
-  val1 = analogRead(potPin1);
-  do
-  {
-    val1 = analogRead(potPin1);
-    motor1.run(BACKWARD);
-    val1 = analogRead(potPin1);
-  } while (val1 < 300);  
-  motor1.run(FORWARD);
-  motor1.run(RELEASE);
+  motor1.run(RELEASE);*/
   
   //motor4.run(RELEASE);
-
+  }
+  else
+  {
     motor4.run(RELEASE);
     motor3.run(RELEASE);
     motor2.run(RELEASE);
     motor1.run(RELEASE);
-    
-    delay(10000);
+  }
   
 }
     
