@@ -1,6 +1,8 @@
-int val;
-int val2;
-int temp;
+int val1, val2, val3, val4, val5, val6, val7, val8, val9, val10, val11, val12, val13, val14, val15, val16 = 0;
+int sum;
+int count;
+int total = 0;
+//int temp;
 int ledPin4 = 36; // LED connected to digital pin 13
 int ledPin3 = 34; // LED connected to digital pin 13
 int ledPin2 = 32; // LED connected to digital pin 13
@@ -21,25 +23,28 @@ void loop()
   
   
   
-if (val2 < 3)
+/*if (val2 < 3)
 {
-  Serial.println(temp);
-  val = 0;
-  val2 = 0;
-  temp = 0;
+  //Serial.print("temp = ");
+  //Serial.println(temp);
+  //val = 0;
+  //val2 = 0;
+  //temp = 0;
 }
 else
 {
   val2 = val2 + 1;
-}
+  Serial.println("else part");
+}*/
 
-
+do
+{
 digitalWrite(ledPin1, LOW); // sets the LED on
 digitalWrite(ledPin2, LOW); // sets the LED on
 digitalWrite(ledPin3, LOW); // sets the LED on
 digitalWrite(ledPin4, LOW); // sets the LED on
-val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+val1 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -47,8 +52,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, LOW); // sets the LED on
  digitalWrite(ledPin3, LOW); // sets the LED on
  digitalWrite(ledPin4, HIGH); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+val2 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -56,8 +61,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, LOW); // sets the LED on
  digitalWrite(ledPin3, HIGH); // sets the LED on
  digitalWrite(ledPin4, LOW); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val3 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -65,8 +70,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, LOW); // sets the LED on
  digitalWrite(ledPin3, HIGH); // sets the LED on
  digitalWrite(ledPin4, HIGH); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val4 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -74,8 +79,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, HIGH); // sets the LED on
  digitalWrite(ledPin3, LOW); // sets the LED on
  digitalWrite(ledPin4, LOW); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val5 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -83,8 +88,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, HIGH); // sets the LED on
  digitalWrite(ledPin3, LOW); // sets the LED on
  digitalWrite(ledPin4, HIGH); //sets the LED on 
-  val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+  val6 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -92,8 +97,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, HIGH); // sets the LED on
  digitalWrite(ledPin3, HIGH); // sets the LED on
  digitalWrite(ledPin4, LOW); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val7 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -101,8 +106,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, HIGH); // sets the LED on
  digitalWrite(ledPin3, HIGH); // sets the LED on
  digitalWrite(ledPin4, HIGH); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val8 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -110,8 +115,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, LOW); // sets the LED on//
  digitalWrite(ledPin3, LOW); // sets the LED on
  digitalWrite(ledPin4, LOW); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val9 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
  
@@ -119,8 +124,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, LOW); // sets the LED on
  digitalWrite(ledPin3, LOW); // sets the LED on
  digitalWrite(ledPin4, HIGH); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val10 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -128,8 +133,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, LOW); // sets the LED on
  digitalWrite(ledPin3, HIGH); // sets the LED on
  digitalWrite(ledPin4, LOW); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val11 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -137,8 +142,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, LOW); // sets the LED on
  digitalWrite(ledPin3, HIGH); // sets the LED on
  digitalWrite(ledPin4, HIGH); // sets the LED on
-val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+val12 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -146,8 +151,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, HIGH); // sets the LED on
  digitalWrite(ledPin3, LOW); // sets the LED on
  digitalWrite(ledPin4, LOW); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val13 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -155,8 +160,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, HIGH); // sets the LED on
  digitalWrite(ledPin3, LOW); // sets the LED on
  digitalWrite(ledPin4, HIGH); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val14 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -164,8 +169,8 @@ Serial.println(val); // prints the value read
  digitalWrite(ledPin2, HIGH); // sets the LED on
  digitalWrite(ledPin3, HIGH); // sets the LED on
  digitalWrite(ledPin4, LOW); // sets the LED on
- val = val + analogRead(0); // read analog input pin 0
-Serial.println(val); // prints the value read
+ val15 = analogRead(0); // read analog input pin 0
+//Serial.println(val); // prints the value read
 //delay(10); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
 
@@ -173,12 +178,27 @@ digitalWrite(ledPin1, HIGH); // sets the LED on
 digitalWrite(ledPin2, HIGH); // sets the LED on
 digitalWrite(ledPin3, HIGH); // sets the LED on
 digitalWrite(ledPin4, HIGH); // sets the LED on
-val = val + analogRead(0); // read analog input pin 0
+val16 = analogRead(0); // read analog input pin 0
 //delay(500);
-Serial.println(val); // prints the value read
-temp = (temp + val)/val2;
-delay(2000); // wait 1s for next reading
+//Serial.println(val); // prints the value read
+//temp = (temp + val)/val2;
+sum = (val1 + val2 + val3 + val4 + val5 + val6 + val7 + val8 + val9 + val10 + val11 + val12 + val13 + val14 + val15 + val16)/16;
+//Serial.print("sum = ");
+//Serial.println(sum);
+count = count + 1;
+total = total + sum;
+//delay(500); // wait 1s for next reading
 //Serial.print(" _ "); // prints the value read
+} while (count < 100);
+
+total = total/count;
+Serial.print("total = ");
+Serial.println(total);
+delay(1000);
+total = 0;
+count = 0;
+sum = 0;
+val1, val2, val3, val4, val5, val6, val7, val8, val9, val10, val11, val12, val13, val14, val15, val16 = 0;
 
 } 
 

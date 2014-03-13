@@ -81,11 +81,11 @@ void receiveEvent(int whichMove)
         digitalWrite(PinMove_motor3, LOW);
         digitalWrite(PinMove_motor4, LOW);
         delay(1500);
-        digitalWrite(PinMove_motor1, HIGH);
-        digitalWrite(PinMove_motor2, HIGH);
-        digitalWrite(PinMove_motor3, HIGH);
-        digitalWrite(PinMove_motor4, HIGH);
-        delay(100);
+        //digitalWrite(PinMove_motor1, HIGH);
+        //digitalWrite(PinMove_motor2, HIGH);
+        //digitalWrite(PinMove_motor3, HIGH);
+        //digitalWrite(PinMove_motor4, HIGH);
+        //delay(100);
       }
       else if (x == 3)
       {

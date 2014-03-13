@@ -4,16 +4,18 @@ void setup()
   Serial.begin(9600);
 }
 
-void setup()
+void loop()
 {
-  //still need to add waveCount to know where openings were to execut in reverse sequence on trip back
+  //still need to add waveCount to know where openings were to execute in reverse sequence on trip back
   int waveCount = 0;
   int waveRow = 0;
-  int delayw = 0; //delayw = (time to drive 16" forward)*(delayw) 
+  int delayw = 0; //delayw = (time to drive 16" forward = 650)*(delayw) = 650*delayw + 100
   //put all of this in a do while loop with a counter as a condition 
  do
  {
-  distanceL= pingLeft();
+  delayw = 0; //reset delayw to 0
+  
+  distanceL = pingLeft();
   Serial.print(distanceL);
  
   distanceR = pingRight();
@@ -32,7 +34,7 @@ void setup()
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(delayx); //this should be the time it takes to drive 16" forward
+    delay(650); //this should be the time it takes to drive 16" forward
     x = 0;       //stop in front of wave 
     Serial.print("x transmitted = ");
     Serial.print(x);
@@ -62,7 +64,7 @@ void setup()
     Wire.endTransmission();
     //waveRow = waveRow + 1;
     
-    distanceL= pingLeft();
+    distanceL = pingLeft();
     Serial.print(distanceL);
  
     distanceR = pingRight();
@@ -89,7 +91,7 @@ void setup()
       Wire.write("x is ");
       Wire.write(x);
       Wire.endTransmission();
-      waveRow = waveRow + 1;
+      waveRow = waveRow + 1; //counts the number rows robot has passed through
     }
     else
     {
@@ -110,7 +112,7 @@ void setup()
    Wire.write("x is ");
    Wire.write(x);
    Wire.endTransmission();
-   x = 0;       //stop to face opening 
+   x = 0;       //stop
    Serial.print("x transmitted = ");
    Serial.print(x);
    Wire.beginTransmission(2);
@@ -126,7 +128,7 @@ void setup()
    Wire.write("x is ");
    Wire.write(x);
    Wire.endTransmission();
-   delayw = delayw*/*time it takes to reverse 16'*/;
+   delayw = delayw*delayx;
    delay(delayw); //delay that correlates to 
    x = 0;       //stop in front of wave 
    Serial.print("x transmitted = ");
@@ -147,7 +149,7 @@ void setup()
     Wire.endTransmission();
   }
   
-  distanceL= pingLeft();
+  distanceL = pingLeft();
   Serial.print(distanceL);
  
   distanceR = pingRight();
@@ -179,6 +181,6 @@ void setup()
   }
   */
   
- } while(waveRow < 4);
+ } while(waveRow < 4); 
   
 }

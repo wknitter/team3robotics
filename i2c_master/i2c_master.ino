@@ -13,28 +13,33 @@ int pingRPin = 22;
 int pingFPin = 23;
 int pingLPin = 24;
 int pingTPin = 25;
-int ledPin = 42; //square led to show 
-int led2Pin = 43; //triangle led that shows delayw = 0
+int ledPin = 42; 
+int led2Pin = 43; 
 
-int fire = 10;
+int fire, tool;
 
-int tooClose = 10; //duration = cm*58 = 17.78*58 = 1031.24 (17.78cm = 7in)
-//14-17 = wave 76-77 = opening
+int tooClose = 10; 
 int durationR, durationF, durationL, forwardCm, leftCm, rightCm;
 int durationT, topCm;
 int distanceR, distanceF, distanceL, distanceT;
-int x;
+int x; //commands for driver slave
+int y; //commands for arm slave
 int wave = 30;
 int rowCount = 0;
 int waveCount = 0;
-int delayw = 0; //900
+int delayw = 0; 
 
-//foward = 1
-//reverse = 2
-//leftTurn = 3
-//rightTurn = 4
-//turnAround = 5
-//halt = 0
+//halt x = 0
+//foward x = 1
+//reverse x = 2
+//leftTurn x = 3
+//rightTurn x = 4
+//turnAround x = 5
+//arm startingPosition y = 6
+//arm grabTool y = 7
+//arm scanTool y = 8
+//raise are for oil rig scan y = 9
+
 
 void setup()
 {
@@ -347,6 +352,7 @@ int pingTop()
 }
 
 //commented out code that did not work:
+
   /*x = 0;
   Serial.print("x transmitted = ");
   Serial.println(x);
