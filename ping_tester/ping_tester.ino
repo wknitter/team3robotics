@@ -17,14 +17,11 @@ void loop() {
   //send out ping
   pinMode(pingLPin, OUTPUT);
   digitalWrite(pingLPin, LOW);
-  delayMicroseconds(2);
+  delayMicroseconds(200);
   digitalWrite(pingLPin, HIGH);
-  delayMicroseconds(5);
+  delayMicroseconds(500);
   digitalWrite(pingLPin, LOW);
-  
-  digitalWrite(pingLPin, HIGH);
-  delayMicroseconds(5);
-  digitalWrite(pingLPin, LOW);
+ 
   
   //read in pulse length of ping
   pinMode(pingLPin, INPUT);

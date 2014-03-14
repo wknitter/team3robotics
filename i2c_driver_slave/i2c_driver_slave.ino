@@ -72,8 +72,8 @@ void receiveEvent(int whichMove)
         Serial.println("reverse");
         //reverse();
         analogWrite(PinPWM_motor1, 100);
-        analogWrite(PinPWM_motor2, 148);
-        analogWrite(PinPWM_motor3, 148);
+        analogWrite(PinPWM_motor2, 130);
+        analogWrite(PinPWM_motor3, 130);
         analogWrite(PinPWM_motor4, 100);
   
         digitalWrite(PinMove_motor1, LOW);

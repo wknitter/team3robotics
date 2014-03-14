@@ -68,10 +68,10 @@ void loop()
     do
     {
       val2 = analogRead(potPin2);
-      motor2.run(BACKWARD); //down
+      motor2.run(FORWARD); //up
       val2 = analogRead(potPin2);
-    } while (val2 > 350);   //305
-    motor2.run(FORWARD);
+    } while (val2 < 600);   //305
+    motor2.run(BACKWARD);
     motor2.run(RELEASE); 
  
     val1 = analogRead(potPin1);

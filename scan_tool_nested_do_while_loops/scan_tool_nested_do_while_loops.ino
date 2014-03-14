@@ -65,14 +65,14 @@ void loop()
   motor4.run(RELEASE);
   
   val2 = analogRead(potPin2);
-  do
-  {
-    val2 = analogRead(potPin2);
-    motor2.run(FORWARD); //up
-    val2 = analogRead(potPin2);
-  } while (val2 < 400);   //427
-  motor2.run(BACKWARD);
-  motor2.run(RELEASE);
+        do
+        {
+          val2 = analogRead(potPin2);
+          motor2.run(BACKWARD); //down
+          val2 = analogRead(potPin2);
+        } while (val2 > 500);   //400
+        motor2.run(FORWARD);
+        motor2.run(RELEASE);
   
   //motor4.run(RELEASE);
   

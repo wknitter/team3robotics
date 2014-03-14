@@ -79,7 +79,7 @@ void loop()
   //this alignment is for oil rig
   //to align with tool, reserve all the < and >
   
-  if(distanceF < 11 && distanceR < 11)
+  if(distanceF < 20 && distanceR < 20) // <20 && <20====>(oil rig)   >20 && >20====>(tools)
   {
     //robot is aligned so stop
     x = 0;
@@ -93,8 +93,9 @@ void loop()
     
     align = 1;
   }
-  else if(distanceF > 11 && distanceR < 11)
+  else if(distanceF > 20 && distanceR < 20) // >20 && <20====>(oil rig)   <20 && >20====>(tools)
   {
+    delay(1000);
     //robot is too far to the left
     x = 4; //turn right
     Serial.print("x transmitted = ");
@@ -111,7 +112,7 @@ void loop()
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(500);
+    delay(1000);
     x = 1;
     Serial.print("x transmitted = ");
     Serial.println(x);
@@ -119,7 +120,15 @@ void loop()
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(200);
+    delay(275);
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(1000);
     x = 3; //turn back left
     Serial.print("x transmitted = ");
     Serial.println(x);
@@ -128,11 +137,20 @@ void loop()
     Wire.write(x);
     Wire.endTransmission();
     delay(800);
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(1000);
     
     align = 2;
   }
-  else
+  else                   // // <20 && >20====>(oil rig)   >20 && <20====>(tools)
   {
+    delay(1000);
     //robot is too far to the right
     x = 3; //turn left
     Serial.print("x transmitted = ");
@@ -149,7 +167,7 @@ void loop()
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(500);
+    delay(1000);
     x = 1;
     Serial.print("x transmitted = ");
     Serial.println(x);
@@ -157,7 +175,15 @@ void loop()
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(200);
+    delay(275);
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(1000);
     x = 4; //turn back right
     Serial.print("x transmitted = ");
     Serial.println(x);
@@ -166,6 +192,14 @@ void loop()
     Wire.write(x);
     Wire.endTransmission();
     delay(800);
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(1000);
     
     align = 2;
   }

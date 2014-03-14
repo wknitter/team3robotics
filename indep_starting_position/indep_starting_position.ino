@@ -77,7 +77,7 @@ void loop()
   
   
   Serial.println("loop 3");
-  for(k=0;k<5;k++) 
+  for(k=0;k<10;k++) 
   {
     val3 = analogRead(potPin3);
     Serial.print("pot 3 = ");

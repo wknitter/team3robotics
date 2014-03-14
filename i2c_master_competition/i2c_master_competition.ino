@@ -9,6 +9,7 @@ int led2Pin = 43; //triangle
 int led3Pin = 41; //circle 
 
 int fire, tool, align = 0;
+int i = 0;
 
 int tooClose = 10; 
 int durationR, durationF, durationL, forwardCm, leftCm, rightCm;
@@ -20,6 +21,7 @@ int wave = 30;
 int rowCount = 0;
 int waveCount = 0;
 int delayw = 0; 
+int delayf = 0;
 
 int val1, val2, val3, val4, val5, val6, val7, val8, val9, val10, val11, val12, val13, val14, val15, val16 = 0;
 int sum;
@@ -40,6 +42,7 @@ int ledPin1 = 30; // LED connected to digital pin 13
 //arm grabTool y = 7
 //arm scanTool y = 8
 //raise are for oil rig scan y = 9
+//insert tool into rig = 10
 
 
 void setup()
@@ -58,7 +61,7 @@ void setup()
 void loop()
 {
   //oil rig detection code///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  delay(1000);
+  delay(3000);
   //raise arm to scanning position
   y = 6;
   Serial.print("y transmitted = ");
@@ -90,7 +93,7 @@ void loop()
   Wire.write("x is ");
   Wire.write(x);
   Wire.endTransmission();
-  delay(600); //950 is one full wave, needs to be just short of that to be centered with first rig 
+  delay(400); //950 is one full wave, needs to be just short of that to be centered with first rig 600 is a bit much
   
   x = 0;
   Serial.print("x transmitted = ");
@@ -135,7 +138,7 @@ void loop()
   distanceT = pingTop();
   Serial.println(distanceT);
   
-  if(distanceT > 225)
+  if(distanceT > 220)
   {
     digitalWrite(ledPin, HIGH);
     delay(2000);
@@ -157,7 +160,7 @@ void loop()
   Wire.write("x is ");
   Wire.write(x);
   Wire.endTransmission();
-  delay(1500); //need to move about 2 waves from last position to scan first rig 1800
+  delay(1500); //need to move about 2 waves from last position to scan first rig 1800 (add 200 because first one was shortened by 200) = 1700
   
   x = 0;
   Serial.print("x transmitted = ");
@@ -202,7 +205,7 @@ void loop()
   distanceT = pingTop();
   Serial.println(distanceT);
   
-  if(distanceT > 225)
+  if(distanceT >= 220)
   {
     digitalWrite(led3Pin, HIGH);
     delay(2000);
@@ -224,7 +227,7 @@ void loop()
   Wire.write("x is ");
   Wire.write(x);
   Wire.endTransmission();
-  delay(1700); //need to move about 2 waves from last position to scan second rig
+  delay(1600); //need to move about 2 waves from last position to scan second rig 1700
   
   x = 0;
   Serial.print("x transmitted = ");
@@ -269,7 +272,7 @@ void loop()
   distanceT = pingTop();
   Serial.println(distanceT);
   
-  if(distanceT > 225)
+  if(distanceT > 220)
   {
     digitalWrite(led2Pin, HIGH);
     delay(2000);
@@ -459,7 +462,25 @@ Wire.beginTransmission(2);
 Wire.write("x is ");
 Wire.write(x);
 Wire.endTransmission();
-delay(50);
+delay(70);
+
+x = 0;
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(500);
+
+x = 3;
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(20);
 
 x = 0;
 Serial.print("x transmitted = ");
@@ -477,7 +498,7 @@ Wire.beginTransmission(2);
 Wire.write("x is ");
 Wire.write(x);
 Wire.endTransmission();
-delay(250);
+delay(60); //250
 
 x = 0;
 Serial.print("x transmitted = ");
@@ -487,6 +508,24 @@ Wire.write("x is ");
 Wire.write(x);
 Wire.endTransmission();
 delay(500);
+
+/*x = 2;
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(100); //300 is way too much 100 is a little too much 
+
+x = 0;
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(500);*/
 /////////////////////////////////////////////////////
 
 //get arm into scanning position
@@ -623,7 +662,7 @@ do
   } while (count < 100);
   
   total = total/count;
-  if (total > 57 && total < 70)
+  if (total > 56 && total < 99) // >57 && <70
   {
     //triangle
     digitalWrite(led2Pin, HIGH);
@@ -631,7 +670,7 @@ do
     digitalWrite(led2Pin, LOW);
     tool = 3;
   }
-  else if (total > 46 && total < 57)
+  else if (total > 45 && total < 57) // >46 && <57
   {
     //circle
     digitalWrite(led3Pin, HIGH);
@@ -639,7 +678,7 @@ do
     digitalWrite(led3Pin, LOW);
     tool = 2;
   }
-  else if (total > 30 && total < 46)
+  else if (total > 20 && total < 46) // >30 && <46
   {
     //square
     digitalWrite(ledPin, HIGH);
@@ -695,7 +734,7 @@ do
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(375);
+    delay(350); //375
     
     x = 0;
     Serial.print("x transmitted = ");
@@ -714,7 +753,7 @@ do
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(800);
+    delay(815); //800 was a little short
     
     x = 0;
     Serial.print("x transmitted = ");
@@ -732,7 +771,7 @@ do
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(100);
+    delay(90); //100
     
     x = 0;
     Serial.print("x transmitted = ");
@@ -742,15 +781,37 @@ do
     Wire.write(x);
     Wire.endTransmission();
     delay(500);
+    //i = i + 1;
   }
   else
   {
     delay(100);
   }
   
-} while (tool != fire);
+  i = i + 1;
+  
+} while (tool != fire || i <= 2); //2?
+ 
+if (i == 2) //this is just in case shape sensor sees nothing
+{
+x = 2; //reverse slightly away from tool to have clearance to pick it up
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(10);
+x = 0; 
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(1000);
 
-//pick up tool code/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
 y = 7; 
 Serial.print("y transmitted = ");
 Serial.println(y);
@@ -762,7 +823,42 @@ y = 7;
 Wire.beginTransmission(4);
 Wire.write(y);
 Wire.endTransmission();
-delay(5000);
+delay(5000); //5000
+}
+else
+{
+//pick up tool code/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+x = 2; //reverse slightly away from tool to have clearance to pick it up
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(20);
+x = 0; 
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(1000);
+
+
+y = 7; 
+Serial.print("y transmitted = ");
+Serial.println(y);
+Wire.beginTransmission(4);
+Wire.write("y is ");
+Wire.write(y);
+Wire.endTransmission();
+y = 7;
+Wire.beginTransmission(4);
+Wire.write(y);
+Wire.endTransmission();
+delay(5000); //5000
+}
 
 //back to starting position
 /*y = 6; 
@@ -777,6 +873,131 @@ Wire.beginTransmission(4);
 Wire.write(y);
 Wire.endTransmission();
 delay(5000);*/
+if (i == 0)
+{
+  //correct to the right to get back to the center
+  //right turn
+  //forward
+  //left turn
+  //turn right
+    x = 4;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(800);
+    
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(500);
+  
+    x = 1;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(350); //375
+    
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(500);
+  
+    x = 3;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(815); //800 was a little short
+    
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(500);
+}
+if (i == 2)
+{
+  //correct to the left to get back to the center
+  //left turn
+  //forward
+  //right turn
+  x = 3;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(815);
+    
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(500);
+  
+    x = 1;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(350); //375
+    
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(500);
+  
+    x = 4;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(800); //800 was a little short
+    
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(500);
+}
+else
+{
+  delay(100);
+}
   
 //reverse back to starting position for wave navigation///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 x = 2;
@@ -786,7 +1007,7 @@ Wire.beginTransmission(2);
 Wire.write("x is ");
 Wire.write(x);
 Wire.endTransmission();
-delay(4000); //4500 = 900*5 (one wave * 5)  NEEDS TO BE MEASURED YET
+delay(3900); // = 780*5 (one wave * 5)  NEEDS TO BE MEASURED YET
 
 //wave navigation code///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 do
@@ -953,7 +1174,7 @@ if(fire == 1)
   Wire.write("x is ");
   Wire.write(x);
   Wire.endTransmission();
-  delay(600);
+  delay(400);
   x = 0;
   Serial.print("x transmitted = ");
   Serial.println(x);
@@ -972,7 +1193,7 @@ else if(fire == 2)
   Wire.write("x is ");
   Wire.write(x);
   Wire.endTransmission();
-  delay(2100); //1500 + 600 = 2100
+  delay(2100); //1700 + 400 = 2100
   x = 0;
   Serial.print("x transmitted = ");
   Serial.println(x);
@@ -991,7 +1212,7 @@ else if(fire == 3)
   Wire.write("x is ");
   Wire.write(x);
   Wire.endTransmission();
-  delay(3800); //1700 + 1500 + 600 = 3800
+  delay(3800); //1700 + 1700 + 400 = 3800
   x = 0;
   Serial.print("x transmitted = ");
   Serial.println(x);
@@ -1016,6 +1237,8 @@ else
 //align with rig code///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 do
   {
+    
+  //sensors = front ping sensor and right ping sensor
   distanceF = pingForward();
   Serial.println(distanceT);
   distanceR = pingRight();
@@ -1029,7 +1252,10 @@ do
   distanceR = pingRight();
   Serial.println(distanceT);
   
-  if(distanceF < 11 && distanceR < 11)
+  //this alignment is for oil rig
+  //to align with tool, reserve all the < and >
+  
+  if(distanceF < 20 && distanceR < 20)
   {
     //robot is aligned so stop
     x = 0;
@@ -1043,8 +1269,9 @@ do
     
     align = 1;
   }
-  else if(distanceF > 11 && distanceR < 11)
+  else if(distanceF > 20 && distanceR < 20)
   {
+    delay(1000);
     //robot is too far to the left
     x = 4; //turn right
     Serial.print("x transmitted = ");
@@ -1061,7 +1288,7 @@ do
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(500);
+    delay(1000);
     x = 1;
     Serial.print("x transmitted = ");
     Serial.println(x);
@@ -1069,7 +1296,15 @@ do
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(200);
+    delay(275);
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(1000);
     x = 3; //turn back left
     Serial.print("x transmitted = ");
     Serial.println(x);
@@ -1078,11 +1313,20 @@ do
     Wire.write(x);
     Wire.endTransmission();
     delay(800);
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(1000);
     
     align = 2;
   }
   else
   {
+    delay(1000);
     //robot is too far to the right
     x = 3; //turn left
     Serial.print("x transmitted = ");
@@ -1099,7 +1343,7 @@ do
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(500);
+    delay(1000);
     x = 1;
     Serial.print("x transmitted = ");
     Serial.println(x);
@@ -1107,7 +1351,15 @@ do
     Wire.write("x is ");
     Wire.write(x);
     Wire.endTransmission();
-    delay(200);
+    delay(275);
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(1000);
     x = 4; //turn back right
     Serial.print("x transmitted = ");
     Serial.println(x);
@@ -1116,6 +1368,14 @@ do
     Wire.write(x);
     Wire.endTransmission();
     delay(800);
+    x = 0;
+    Serial.print("x transmitted = ");
+    Serial.println(x);
+    Wire.beginTransmission(2);
+    Wire.write("x is ");
+    Wire.write(x);
+    Wire.endTransmission();
+    delay(1000);
     
     align = 2;
   }
@@ -1136,11 +1396,129 @@ do
   } while (align != 1);
 
 //insert tool into rig code///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+ delay(1000);
+ y = 6;
+ Serial.print("y transmitted = ");
+ Serial.println(y);
+ Wire.beginTransmission(4);
+ Wire.write("y is ");
+ Wire.write(y);
+ Wire.endTransmission();
+ delay(4000);
+ 
+ //reverse
+ x = 2;
+ Serial.print("x transmitted = ");
+ Serial.println(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+ delay(200);
+ x = 0;
+ Serial.print("x transmitted = ");
+ Serial.println(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+ delay(500);
+ 
+ //drive forward
+ x = 1;
+ Serial.print("x transmitted = ");
+ Serial.println(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+ delay(400);
+ x = 0;
+ Serial.print("x transmitted = ");
+ Serial.println(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+ delay(500);
+ 
+ //reverse to how close to you want to be to the waves
+ x = 2;
+ Serial.print("x transmitted = ");
+ Serial.println(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+ delay(450);
+ x = 0;
+ Serial.print("x transmitted = ");
+ Serial.println(x);
+ Wire.beginTransmission(2);
+ Wire.write("x is ");
+ Wire.write(x);
+ Wire.endTransmission();
+ delay(500);
+ 
 //navigate to have left ping sensor facing wave///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //use code in reverse order that was used to drive to the rig on fire
+//robot will be facing oil rigs
 
-//return to starting postion wave navigation///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//thus turn left
+x = 3;
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(800);
+x = 0;
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(1000);
+
+//calculate delayf
+if (fire == 1) //square
+{
+  delayf = 3800;
+}
+else if (fire == 2) //circle
+{
+  delayf = 2100;
+}
+else if (fire == 3) //triangle
+{
+  delayf = 400;
+}
+else //make it the same as the longest distance
+{
+  delayf = 3800;
+}
+
+//reverse to starting position
+x = 2;
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(delayf);
+x = 0;
+Serial.print("x transmitted = ");
+Serial.println(x);
+Wire.beginTransmission(2);
+Wire.write("x is ");
+Wire.write(x);
+Wire.endTransmission();
+delay(1000);
+
+//return to starting place of course wave navigation///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 do
   {
     distanceL= pingLeft();
@@ -1495,8 +1873,8 @@ do
       digitalWrite(ledPin, LOW);
       delay(2000);
   
+  }
 }
-
 
 
 

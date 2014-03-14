@@ -34,7 +34,7 @@ void setup()
   Wire.begin(4); //join bus with address as #4 slave
   Wire.onReceive(receiveEvent);
   //turn motors on and let coast
-  motor1.setSpeed(100);
+  motor1.setSpeed(150); //100
   motor2.setSpeed(100);
   motor3.setSpeed(250);
   motor4.setSpeed(250);
@@ -153,7 +153,7 @@ void receiveEvent(int whichFunc)
           val3 = analogRead(potPin3);
           motor3.run(BACKWARD); //up
           val3 = analogRead(potPin3);
-        } while (val3 < 540);   //549
+        } while (val3 < 560);   //549
         motor3.run(FORWARD);
         motor3.run(RELEASE);
     
@@ -187,7 +187,9 @@ void receiveEvent(int whichFunc)
         val4 = analogRead(potPin4);
         motor4.run(FORWARD); //pick up tool and bring back to carry
         val4 = analogRead(potPin4);
-      } while (val4 < 750);
+      } while (val4 < 700);
+      motor4.run(BACKWARD);
+      motor4.run(RELEASE);
       
     }
     
@@ -208,7 +210,7 @@ void receiveEvent(int whichFunc)
             val3 = analogRead(potPin3);
             motor3.run(BACKWARD); //up
             val3 = analogRead(potPin3);
-          } while (val3 < 855);   //815
+          } while (val3 < 815);   //815
           motor3.run(FORWARD);
           motor3.run(RELEASE);
     
@@ -240,7 +242,7 @@ void receiveEvent(int whichFunc)
       }    
     }
     
-    else if (y == 9)
+    else if (y == 9) //raise arm to scan oil rigs
     {
       val4 = analogRead(potPin4);
       do
@@ -266,6 +268,84 @@ void receiveEvent(int whichFunc)
       } while (val4 > 525); //525   805
       motor4.run(FORWARD);    
       motor4.run(RELEASE);
+    }
+    
+    else if (y == 10) //insert tool into rig
+    {
+      val4 = analogRead(potPin4);
+      do
+      {
+        val4 = analogRead(potPin4);
+        motor4.run(BACKWARD); //out
+        val4 = analogRead(potPin4);
+    
+        val3 = analogRead(potPin3);
+        do
+        {
+          val3 = analogRead(potPin3);
+          motor3.run(BACKWARD); //up
+          val3 = analogRead(potPin3);
+        } while (val3 < 730); //728   
+        motor3.run(FORWARD);
+        motor3.run(RELEASE);
+    
+      } while (val4 > 325);   
+      motor4.run(FORWARD);    
+      motor4.run(RELEASE);
+      
+      val2 = analogRead(potPin2);
+      do
+      {
+        val2 = analogRead(potPin2);
+        motor2.run(BACKWARD); //down
+        val2 = analogRead(potPin2);
+      } while (val2 > 310);
+      motor2.run(FORWARD);    
+      motor2.run(RELEASE);
+      
+      val1 = analogRead(potPin1);
+      do
+      {
+        val1 = analogRead(potPin1);
+        motor1.run(BACKWARD); //open claw
+        val1 = analogRead(potPin1);
+      } while (val1 < 300); 
+      motor1.run(FORWARD);
+      motor1.run(RELEASE);
+      
+      delay(5000); //this delay is to wait for robot to reverse
+      
+      val1 = analogRead(potPin1);
+      do
+      {
+        val1 = analogRead(potPin1);
+        motor1.run(FORWARD); //close claw
+        val1 = analogRead(potPin1);
+      } while (val1 > 19); 
+      motor1.run(BACKWARD);
+      motor1.run(RELEASE);
+      
+      val3 = analogRead(potPin3);
+      do
+      {
+        val3 = analogRead(potPin3);
+        motor3.run(BACKWARD); //up from 728
+        val3 = analogRead(potPin3);
+      } while (val3 < 770); //800?  
+      motor3.run(FORWARD);
+      motor3.run(RELEASE);
+      
+      delay(5000); //this delay is waiting for robot to try to drive forward to insert tool
+      
+      val1 = analogRead(potPin1); //drop tool
+      do
+      {
+        val1 = analogRead(potPin1);
+        motor1.run(BACKWARD); //open claw
+        val1 = analogRead(potPin1);
+      } while (val1 < 300); 
+      motor1.run(FORWARD);
+      motor1.run(RELEASE);
     }
     
     else

@@ -7,7 +7,7 @@ AF_DCMotor motor4(4);
 void setup()
 {
   Serial.begin(9600);
-  motor4.setSpeed(250); //100 250
+  motor4.setSpeed(100); //100 250
   motor4.run(RELEASE);
 }
 

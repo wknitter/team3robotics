@@ -7,7 +7,7 @@ AF_DCMotor motor3(3);
 void setup()
 {
   Serial.begin(9600);
-  motor3.setSpeed(250); //200
+  motor3.setSpeed(200); //200
   motor3.run(RELEASE);
 }
 

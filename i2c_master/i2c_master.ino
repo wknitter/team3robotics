@@ -88,10 +88,10 @@ void loop()
       Wire.write("x is ");
       Wire.write(x);
       Wire.endTransmission();
-      delay(950);
+      delay(880);
       waveCount = waveCount + 1;
       //digitalWrite(ledPin, HIGH);
-      delayw = (880*waveCount); //-900 ?
+      delayw = (780*waveCount); //880 860 820 too much
   
       x = 0;
       Serial.print("x transmitted = ");
@@ -166,7 +166,7 @@ void loop()
       Wire.write("x is ");
       Wire.write(x);
       Wire.endTransmission();
-      delay(680);
+      delay(700); //680
       
       x = 0;
       Serial.print("x transmitted = ");

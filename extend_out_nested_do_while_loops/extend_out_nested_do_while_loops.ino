@@ -38,9 +38,9 @@ void loop()
   val4 = analogRead(potPin4);
   do
   {
-    val4 = analogRead(potPin4);
-    motor4.run(BACKWARD); //out
-    val4 = analogRead(potPin4);
+    //val4 = analogRead(potPin4);
+    //motor4.run(BACKWARD); //out
+    //val4 = analogRead(potPin4);
     
     val3 = analogRead(potPin3);
     do
@@ -52,7 +52,11 @@ void loop()
     motor3.run(FORWARD);
     motor3.run(RELEASE);
     
-  } while (val4 > 380);   //305 is a bit low and 380 is a bit high but the motor moves much faster
+    val4 = analogRead(potPin4);
+    motor4.run(BACKWARD); //out
+    val4 = analogRead(potPin4);
+    
+  } while (val4 > 350);   //305 is a bit low and 380 is a bit high but the motor moves much faster
   motor4.run(FORWARD);    //236-280 = old value where are was out too far for leverage
   motor4.run(RELEASE);
   
@@ -84,11 +88,11 @@ void loop()
     val4 = analogRead(potPin4);
     motor4.run(FORWARD); //pick up tool
     val4 = analogRead(potPin4);
-  } while (val4 < 500);
+  } while (val4 < 300);
   
   delay(2000);
   
-  val4 = analogRead(potPin4);
+  /*val4 = analogRead(potPin4);
   do
   {
     val4 = analogRead(potPin4);
@@ -113,7 +117,7 @@ void loop()
     motor4.run(RELEASE);
     motor3.run(RELEASE);
     motor2.run(RELEASE);
-    motor1.run(RELEASE);
+    motor1.run(RELEASE);*/
     
     delay(10000);
   

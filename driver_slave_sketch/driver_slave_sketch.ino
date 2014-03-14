@@ -32,10 +32,10 @@ void loop()
 {
   
   //halt();
-  //forward();
+  forward();
   halt();
-  reverse();
-  halt();
+  //reverse();
+  //halt();
   //turnAround();
   //halt();
 }
@@ -53,7 +53,7 @@ void forward()
   digitalWrite(PinMove_motor3, HIGH);
   digitalWrite(PinMove_motor4, HIGH);
   //delay(1450); //time it takes for robot to move 16" forward
-  delay(1400); //650 = 16" forward 650*2 = 1300
+  delay(100); //650 = 16" forward 650*2 = 1300
 }
 
 void reverse()
